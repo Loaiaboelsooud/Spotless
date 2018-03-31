@@ -28,7 +28,7 @@ public class ItemsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_items);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar_items);
         setSupportActionBar(toolbar);
         relativeLayout = findViewById(R.id.linear_main);
         addCheckBox();
