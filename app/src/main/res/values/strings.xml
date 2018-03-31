@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Spotless</string>
+    <string name="title_activity_laundry_shop">LaundryShop</string>
+    <string name="come_on">Come on!</string>
+    <string name="_971">+971</string>
+    <string name="work_with_us">Work with us</string>
+    <string name="please_enter_your_phone_no">Please Enter your Phone no</string>
+    <string name="signin_B">SignIn</string>
+    <string name="DefaultLocation_B">Default Location</string>
+    <string name="NewLocation_B">New Location</string>
+    <string name="ShopPersonalName">Name</string>
+    <string name="ShopName">Name</string>
+    <string name="ShopSignUpB">Button</string>
+    <string name="ShopLocation">Name</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_menu">MenuActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_items">ItemsActivity</string>
+    <string name="procceed">procceed</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+</resources>

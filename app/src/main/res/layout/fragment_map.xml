@@ -1,0 +1,55 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:Laundry="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.loaiaboelsooud.Spotless.MapFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="50dp"
+        Laundry:layout_constraintBottom_toBottomOf="parent"
+        Laundry:layout_constraintEnd_toEndOf="parent"
+        Laundry:layout_constraintHorizontal_bias="0.0"
+        Laundry:layout_constraintStart_toStartOf="parent"
+        Laundry:layout_constraintTop_toTopOf="parent"
+        Laundry:layout_constraintVertical_bias="1.0"
+        tools:context="com.example.loaiaboelsooud.Spotless.MapsActivity">
+
+
+    </fragment>
+
+    <Button
+        android:id="@+id/defaultLocationB"
+        android:layout_width="141dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/holo_green_light"
+        android:text="@string/DefaultLocation_B"
+        Laundry:layout_constraintBottom_toBottomOf="parent"
+        Laundry:layout_constraintEnd_toEndOf="parent"
+        Laundry:layout_constraintHorizontal_bias="0.867"
+        Laundry:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/newLocationB"
+        android:layout_width="141dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/holo_green_light"
+        android:text="@string/NewLocation_B"
+        android:visibility="invisible"
+        Laundry:layout_constraintBottom_toBottomOf="parent"
+        Laundry:layout_constraintEnd_toEndOf="parent"
+        Laundry:layout_constraintHorizontal_bias="0.158"
+        Laundry:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
