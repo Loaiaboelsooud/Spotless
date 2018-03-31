@@ -3,7 +3,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scroll_main"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -14,28 +13,56 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <RelativeLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_items"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar_items"
+            <Button
+                android:id="@+id/toolbar_overflow_menu_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
-                android:minHeight="?attr/actionBarSize"
-                android:orientation="horizontal"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
+                android:layout_gravity="right" />
 
-                <Button
-                    android:id="@+id/toolbar_overflow_menu_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right" />
-
-            </android.support.v7.widget.Toolbar>
-        </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:text="Item name"></TextView>
+
+        <TextView
+            android:id="@+id/TextView02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:text="StemPressing"></TextView>
+
+        <TextView
+            android:id="@+id/TextView03"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="180dp"
+            android:text="Dry Clean"></TextView>
+
+        <TextView
+            android:id="@+id/TextView04"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="260dp"
+            android:text="Quantity"></TextView>
+
+    </android.support.constraint.ConstraintLayout>
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -45,36 +72,6 @@
             android:id="@+id/linear_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></RelativeLayout>
+
     </ScrollView>
-
-
-    <TextView
-        android:id="@+id/TextView01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:text="Item name"></TextView>
-
-    <TextView
-        android:id="@+id/TextView02"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:text="StemPressing"></TextView>
-
-    <TextView
-        android:id="@+id/TextView03"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="180dp"
-        android:text="Dry Clean"></TextView>
-
-    <TextView
-        android:id="@+id/TextView04"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="260dp"
-        android:text="Quantity"></TextView>
-
-
 </LinearLayout>

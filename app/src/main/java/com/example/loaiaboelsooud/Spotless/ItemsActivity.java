@@ -32,6 +32,7 @@ public class ItemsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         relativeLayout = findViewById(R.id.linear_main);
         addCheckBox();
+        Log.d(TAG, "onCreate: yasater");
     }
 
     private void addQunatityBox(int i) {
@@ -41,9 +42,7 @@ public class ItemsActivity extends AppCompatActivity {
         //QuanityOfItems.setMaxEms(2);
         QuanityOfItems.setText("0");
         QuanityOfItemsParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        QuanityOfItemsParams.setMargins(802, (50 * i * 3) + 90, 0, 0);
-        QuanityOfItemsParams.setMarginStart(802);
-        QuanityOfItemsParams.setMarginEnd(803);
+        QuanityOfItemsParams.setMargins(802, (150 * i) + 90, 0, 0);
         QuanityOfItems.setId(i);
         relativeLayout.addView(QuanityOfItems, QuanityOfItemsParams);
     }
@@ -53,26 +52,26 @@ public class ItemsActivity extends AppCompatActivity {
         View viewDivider = new View(this);
         viewDividerParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, (int) (getResources().getDisplayMetrics().density * 1));
         viewDivider.setBackgroundColor(Color.parseColor("#000000"));
-        viewDividerParams.setMargins(0, (50 * i * 3) + 90, 300, 0);
+        viewDividerParams.setMargins(0, (150 * i) + 90, 300, 0);
         relativeLayout.addView(viewDivider, viewDividerParams);
     }
 
     private void addCheckBox() {
-        StemPressingParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        DryCleanParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        StemPressingParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        DryCleanParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         for (int i = 0; i < 20; i++) {
-            StemPressingParams.setMargins(300, (50 * i * 3) + 90, 0, 0);
-            DryCleanParams.setMargins(600, (50 * i * 3) + 90, 0, 0);
+            Log.d(TAG, "addCheckBox: " + i);
+            StemPressingParams.setMargins(300, (150 * i) + 90, 0, 0);
+            DryCleanParams.setMargins(600, (150 * i) + 90, 0, 0);
             StemPressingBox = new CheckBox(this);
             DryCleanBox = new CheckBox(this);
             StemPressingBox.setId(i);
             DryCleanBox.setId(i);
-            // checkBox.setText("check");
-            // checkBox.setText("check");
+            //StemPressingBox.setText("check  1" + "  " + i);
+            //DryCleanBox.setText("check  2" + "  " + i);
             StemPressingBox.setOnClickListener(getOnClickDoSomething(StemPressingBox));
             DryCleanBox.setOnClickListener(getOnClickDoSomething(DryCleanBox));
-
             relativeLayout.addView(StemPressingBox, StemPressingParams);
             relativeLayout.addView(DryCleanBox, DryCleanParams);
             addQunatityBox(i);
