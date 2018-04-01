@@ -46,6 +46,10 @@
         <activity
             android:name=".ItemsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".OrdersActivity"
+            android:label="@string/title_activity_orders"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

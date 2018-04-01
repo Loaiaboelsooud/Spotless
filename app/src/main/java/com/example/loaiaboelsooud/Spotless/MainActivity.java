@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         ndbutton.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this, ItemsActivity.class);
+                        Intent intent = new Intent(MainActivity.this, OrdersActivity.class);
                         //intent.putExtra("activity", "MenuActivity");
                         startActivity(intent);
                     }
