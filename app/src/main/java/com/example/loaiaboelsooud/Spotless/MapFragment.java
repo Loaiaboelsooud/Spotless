@@ -35,7 +35,6 @@ import com.google.android.gms.tasks.Task;
 
 import static java.lang.Boolean.TRUE;
 
-
 public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener {
 
     private Location currentLocation;
@@ -45,7 +44,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 15f;
-
     //vars
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
@@ -308,7 +306,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     public boolean CheckGpsStatus() {
         context = getActivity().getApplicationContext();
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
     }
@@ -327,13 +324,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         });
         builder.setNegativeButton("LATER", null);
         builder.create().show();
-
         return;
     }
 
     @Override
     public boolean onMyLocationButtonClick() {
-
 
         Marker(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()));
 

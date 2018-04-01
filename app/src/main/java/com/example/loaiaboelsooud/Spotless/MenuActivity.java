@@ -1,5 +1,7 @@
 package com.example.loaiaboelsooud.Spotless;
 
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -23,28 +25,16 @@ public class MenuActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Log.d(TAG, "onCreate: " + getSupportActionBar().getTitle() + " " + getSupportActionBar().getHeight());
-        getSupportActionBar().getHeight();
-      /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-*/
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         addMapFragment();
 
 
@@ -52,13 +42,11 @@ public class MenuActivity extends AppCompatActivity
 
     private void addMapFragment() {
 
-
         MapFragment MapFragment = new MapFragment();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainer, MapFragment, "MFragment");
         // fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-
     }
 
 
@@ -102,7 +90,9 @@ public class MenuActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_ordersHistory) {
+            Intent intent = new Intent(MenuActivity.this, OrdersActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_slideshow) {
 

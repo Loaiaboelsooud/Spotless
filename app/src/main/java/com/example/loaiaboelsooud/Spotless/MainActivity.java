@@ -16,14 +16,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final MapsActivity m = new MapsActivity();
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
         Button stbutton = findViewById(R.id.SignInB);
         stbutton.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this,MenuActivity.class);
+                        Intent intent = new Intent(MainActivity.this, MenuActivity.class);
                         intent.putExtra("activity", "MainActivity");
                         startActivity(intent);
                     }

@@ -18,10 +18,10 @@ public class OrdersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     Context context;
     String[] orders;
 
-    public OrdersAdapter(Context context, String[] items) {
+    public OrdersAdapter(Context context, String[] orders) {
 
         this.context = context;
-        this.orders= orders;
+        this.orders = orders;
     }
 
     @Override
@@ -35,8 +35,6 @@ public class OrdersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ((OrdersAdapter.Order) holder).textView.setText(orders[position]);
-        // ((Item) holder).stemPressingBox.setText(items[position]);
-        //((Item) holder).dryCleanBox.setText(items[position]);
     }
 
     @Override
