@@ -109,13 +109,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                 return;
             }
 
-            mMap.setMyLocationEnabled(true);
-            mMap.setOnMyLocationButtonClickListener(this);
-            mMap.getUiSettings().setMyLocationButtonEnabled(true);
-            initNewLocationB();
+
         }
 
-
+        mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
             @Override
@@ -140,7 +137,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                 location.addOnCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
-                        if (task.isSuccessful()) {
+                        if (task.isSuccessful() && (Location) task.getResult() != null) {
                             Log.d(TAG, "onComplete: found location!");
                             currentLocation = (Location) task.getResult();
 
@@ -152,6 +149,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                                     DEFAULT_ZOOM);*/
 
                             Log.d(TAG, "onComplete: found location!");
+                            mMap.setMyLocationEnabled(true);
+                            mMap.getUiSettings().setMyLocationButtonEnabled(true);
+                            initNewLocationB();
                         } else {
                             Log.d(TAG, "onComplete: current location is null");
                             Toast.makeText(getActivity().getApplicationContext(), "unable to get current location", Toast.LENGTH_SHORT).show();

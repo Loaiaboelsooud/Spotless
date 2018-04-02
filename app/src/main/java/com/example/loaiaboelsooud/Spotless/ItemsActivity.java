@@ -28,15 +28,14 @@ public class ItemsActivity extends AppCompatActivity {
     }
 
  /*
-
+checkbox click listener
     View.OnClickListener getOnClickDoSomething(final Button button) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 button.setText("1");
                 Log.d(TAG, "id: " + button.getId() + " text " + button.getText());
-
-            }
+               }
         };
     }
 */

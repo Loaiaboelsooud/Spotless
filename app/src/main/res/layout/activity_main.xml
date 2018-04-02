@@ -38,7 +38,8 @@
         android:text="@string/signin_B"
         app:layout_constraintBottom_toTopOf="@+id/WorkWithUsT"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SIgnInPhoneno" />
+        app:layout_constraintTop_toBottomOf="@+id/SIgnInPhoneno"
+        android:icon="@drawable/ic_menu_send"/>
 
     <Button
         android:id="@+id/WorkWithUsB"
