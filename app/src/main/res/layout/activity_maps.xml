@@ -1,3 +1,4 @@
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -20,25 +21,19 @@
         map:layout_constraintVertical_bias="1.0"
         tools:context="com.example.loaiaboelsooud.Spotless.MapsActivity">
 
-        <Button
-            android:id="@+id/MapB"
-            android:layout_width="141dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="444dp"
-            android:background="@android:color/holo_green_light"
-            android:text="@string/DefaultLocation_B"
-            android:visibility="invisible"
-            map:layout_constraintBottom_toBottomOf="parent"
-            map:layout_constraintEnd_toEndOf="parent"
-            map:layout_constraintStart_toStartOf="parent"
-            map:layout_constraintTop_toTopOf="parent"
-            map:layout_constraintVertical_bias="0.272"
-            tools:text="MapButton" />
-
     </fragment>
+
+    <Button
+        android:id="@+id/MapB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="52dp"
+        android:background="@android:color/holo_green_light"
+        android:text="@string/DefaultLocation_B"
+        android:visibility="invisible"
+        map:layout_constraintBottom_toBottomOf="@+id/map"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

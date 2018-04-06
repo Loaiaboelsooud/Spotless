@@ -44,6 +44,7 @@ import static java.lang.Boolean.TRUE;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener {
     private Location currentLocation;
+    public LatLng latLngs;
     private static final String TAG = "MapsActivity";
     private boolean mapInt = false;
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -55,6 +56,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -124,11 +126,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
-            mMap.setMyLocationEnabled(true);
-            mMap.setOnMyLocationButtonClickListener(this);
 
-            mMap.getUiSettings().setMyLocationButtonEnabled(true);
-            initButton();
+            mMap.setOnMyLocationButtonClickListener(this);
         }
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -155,7 +154,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 location.addOnCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
-                        if (task.isSuccessful()) {
+                        if (task.isSuccessful() && (Location) task.getResult() != null) {
                             Log.d(TAG, "onComplete: found location!");
                             currentLocation = (Location) task.getResult();
 
@@ -167,6 +166,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     DEFAULT_ZOOM);*/
 
                             Log.d(TAG, "onComplete: found location!");
+                            mMap.setMyLocationEnabled(true);
+                            mMap.getUiSettings().setMyLocationButtonEnabled(true);
+                            initButton();
                         } else {
                             Log.d(TAG, "onComplete: current location is null");
                             Toast.makeText(MapsActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
@@ -213,7 +215,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
-
+        latLngs = latLng;
 
     }
 
@@ -232,11 +234,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         final String activity = intent.getStringExtra("activity");
 
         switch (activity) {
-            case "MainActivity":
-                Log.d(TAG, "Main Activity");
+            case "SignUpActivity":
                 mapButton.setText("proceed");
                 break;
-
             default:
                 Log.d(TAG, "Default");
 
@@ -246,14 +246,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public void onClick(View v) {
 
                         switch (activity) {
-                            case "MainActivity":
-                                Log.d(TAG, "Main Activity");
+                            case "SignUpActivity":
 
+                                Location location = new Location("location");
+                                location.setLatitude(latLngs.latitude);
+                                location.setLongitude(latLngs.longitude);
+                                SignUpActivity.currentLocation = location;
+                                Intent intent2 = new Intent(MapsActivity.this, SignUpActivity.class);
+                                //intent.putExtra("activity", "MenuActivity");
+                                startActivity(intent2);
                                 break;
-
                             default:
                                 Log.d(TAG, "Default");
-
                         }
                     }
                 }
@@ -346,6 +350,4 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         return false;
     }
-
-
 }

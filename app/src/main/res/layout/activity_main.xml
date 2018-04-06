@@ -2,9 +2,17 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_form"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.loaiaboelsooud.Spotless.MainActivity">
+
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp" />
 
     <TextView
         android:id="@+id/WorkWithUsT"
@@ -35,11 +43,11 @@
         android:layout_marginBottom="177dp"
         android:layout_marginEnd="32dp"
         android:layout_marginTop="64dp"
+        android:icon="@drawable/ic_menu_send"
         android:text="@string/signin_B"
         app:layout_constraintBottom_toTopOf="@+id/WorkWithUsT"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SIgnInPhoneno"
-        android:icon="@drawable/ic_menu_send"/>
+        app:layout_constraintTop_toBottomOf="@+id/SIgnInPhoneno" />
 
     <Button
         android:id="@+id/WorkWithUsB"
