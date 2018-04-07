@@ -1,33 +1,25 @@
 package com.example.loaiaboelsooud.Spotless;
 
-import android.*;
 import android.Manifest;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -37,85 +29,72 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
 import static java.lang.Boolean.TRUE;
 
+public class SPMapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener {
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener {
     private Location currentLocation;
-    public LatLng latLngs;
     private static final String TAG = "MapsActivity";
     private boolean mapInt = false;
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 15f;
-
     //vars
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
-
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        View rootView = inflater.inflate(R.layout.fragment_map, container, false);
+        initDefaualtLocationB(rootView);
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity().getApplicationContext());
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_maps);
         if (CheckGpsStatus()) {
             getLocationPermission();
         } else {
             GpsDirect();
-
         }
-        //  addFragment();
+        return rootView;
     }
 
-
-    public MapsActivity() {
+    public SPMapFragment() {
         super();
     }
 
-  /*  private void addFragment() {
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        MapFragment MixFragment = new MapFragment();
-        fragmentTransaction.add(R.id.fragment_map, MixFragment);
-        fragmentTransaction.commit();
-
-    }*/
-
     @Override
-    protected void onResume() {
+    public void onResume() {
         //to be tested
+
         super.onResume();
+
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (!mapInt) {
+
                     if (CheckGpsStatus()) {
                         getLocationPermission();
                     }
                 }
             }
         }, 10000);
+
     }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        Toast.makeText(this, "Map is Ready", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity().getApplicationContext(), "Map is Ready", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "onMapReady: map is ready");
 
         mMap = googleMap;
@@ -123,15 +102,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (mLocationPermissionsGranted) {
             getDeviceLocation();
 
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+            if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(),
                     Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
                 return;
             }
 
-            mMap.setOnMyLocationButtonClickListener(this);
+
         }
 
+        mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
             @Override
@@ -147,7 +128,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void getDeviceLocation() {
         Log.d(TAG, "getDeviceLocation: getting the devices current location");
 
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
         try {
             if (mLocationPermissionsGranted) {
@@ -170,36 +151,27 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Log.d(TAG, "onComplete: found location!");
                             mMap.setMyLocationEnabled(true);
                             mMap.getUiSettings().setMyLocationButtonEnabled(true);
-                            initButton();
+                            initNewLocationB();
                         } else {
                             Log.d(TAG, "onComplete: current location is null");
-                            Toast.makeText(MapsActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity().getApplicationContext(), "unable to get current location", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
             }
         } catch (SecurityException e) {
+            Toast.makeText(getActivity().getApplicationContext(), "Security exception", Toast.LENGTH_SHORT).show();
             Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage());
         }
     }
 
-    private void Marker(LatLng currentLocation) {
-        try {
-            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-            List<Address> addresses;
-            addresses = geocoder.getFromLocation(currentLocation.latitude, currentLocation.longitude, 1);
-            String KnownName = addresses.get(0).getFeatureName();
-            String Locality = addresses.get(0).getLocality();
-            String SubAdminArea = addresses.get(0).getSubAdminArea();
-            mMap.clear();
-            mMap.addMarker(new MarkerOptions().position(currentLocation).draggable(true)
-                    .title(KnownName + " " + Locality + " " + SubAdminArea)).showInfoWindow();
-            moveCamera(currentLocation, DEFAULT_ZOOM);
 
-        } catch (IOException e) {
-            Log.d(TAG, "error");
-            e.printStackTrace();
-        }
+    private void Marker(LatLng currentLocation) {
+
+        mMap.clear();
+        mMap.addMarker(new MarkerOptions().position(currentLocation).draggable(true));
+        moveCamera(currentLocation, DEFAULT_ZOOM);
+
         //ta7rak el marker manually
         /*        mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
 
@@ -227,49 +199,55 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
-        latLngs = latLng;
-
     }
 
     private void initMap() {
         Log.d(TAG, "initMap: initializing map");
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-
-        mapFragment.getMapAsync(MapsActivity.this);
+        SupportMapFragment SPMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.spmap);
+        SPMapFragment.getMapAsync(SPMapFragment.this);
 
     }
 
-    private void initButton() {
-        Button mapButton = findViewById(R.id.MapB);
-        mapButton.setVisibility(View.VISIBLE);
-        Intent intent = getIntent();
-        final String activity = intent.getStringExtra("activity");
-
-        switch (activity) {
-            case "SignUpActivity":
-                mapButton.setText("proceed");
-                break;
-            default:
-                Log.d(TAG, "Default");
-
-        }
-        mapButton.setOnClickListener(
+    private void initNewLocationB() {
+        Button NewLocationB = getView().findViewById(R.id.newLocationB);
+        NewLocationB.setVisibility(View.VISIBLE);
+        NewLocationB.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
-
-                        switch (activity) {
-                            case "SignUpActivity":
-                                SignUpActivity.currentLocation = latLngs;
-                                Intent intent2 = new Intent(MapsActivity.this, SignUpActivity.class);
-                                intent2.putExtra("activity", "MenuActivity");
-                                startActivity(intent2);
-                                break;
-                            default:
-                                Log.d(TAG, "Default");
-                        }
+                        Log.d(TAG, "onClick: new location");
                     }
                 }
         );
+    }
+
+    private void initDefaualtLocationB(View v) {
+        Button DefaualtLocationB = v.findViewById(R.id.defaultLocationB);
+        /*   Intent intent = getIntent();
+        final String activity = intent.getStringExtra("activity");
+
+        switch (activity) {
+            case "MainActivity":
+                Log.d(TAG, "Main Activity");
+                mapButton.setText("proceed");
+                break;
+          default:
+                Log.d(TAG, "Default");
+        }*/
+        DefaualtLocationB.setOnClickListener(
+                new Button.OnClickListener() {
+                    public void onClick(View v) {
+                        Log.d(TAG, "onClick: Default Location");
+/*                 switch (activity) {
+                            case "MainActivity":
+                                Log.d(TAG, "Main Activity");
+                                break;
+                            default:
+                                Log.d(TAG, "Default");
+                        }*/
+                    }
+                }
+        );
+
     }
 
     private void getLocationPermission() {
@@ -278,19 +256,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION};
 
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+        if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
                 FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+            if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
                     COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mLocationPermissionsGranted = true;
                 initMap();
             } else {
-                ActivityCompat.requestPermissions(this,
+                ActivityCompat.requestPermissions(getActivity(),
                         permissions,
                         LOCATION_PERMISSION_REQUEST_CODE);
             }
         } else {
-            ActivityCompat.requestPermissions(this,
+            ActivityCompat.requestPermissions(getActivity(),
                     permissions,
                     LOCATION_PERMISSION_REQUEST_CODE);
         }
@@ -326,13 +304,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
     public boolean CheckGpsStatus() {
-        context = getApplicationContext();
+        context = getActivity().getApplicationContext();
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
     }
 
+
     public void GpsDirect() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Need location service ");  // GPS not found
         builder.setMessage("Laundry would like to use your location .Please Enable location Service"); // Want to enable?
         builder.setPositiveButton("GO TO SETTINGS", new DialogInterface.OnClickListener() {
@@ -347,8 +329,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+
         Marker(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()));
+
         return false;
     }
+
 }

@@ -36,10 +36,9 @@ public class MainActivity extends AppCompatActivity {
                         // mLoginView.setVisibility(View.VISIBLE);
                         //    showProgress(true);
                         Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
-                        intent.putExtra("activity", "MainActivity");
+                        intent.putExtra("activity", "Client");
                         startActivity(intent);
                         //  mLoginView.setVisibility(View.INVISIBLE);
-
                     }
                 }
         );
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 new Button.OnClickListener() {
                     public void onClick(View v) {
                         Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
-                        //intent.putExtra("activity", "MenuActivity");
+                        intent.putExtra("activity", "ServiceProvider");
                         startActivity(intent);
                     }
                 }

@@ -35,7 +35,8 @@ public class MenuActivity extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        addMapFragment();
+        //addMapFragment();
+        addSPMapFragment();
 
 
     }
@@ -48,6 +49,15 @@ public class MenuActivity extends AppCompatActivity
         // fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+    private void addSPMapFragment() {
+
+        MapFragment SPMapFragment = new MapFragment();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainer, SPMapFragment, "SPMFragment");
+        // fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
 
 
     @Override
@@ -56,7 +66,8 @@ public class MenuActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            moveTaskToBack(true);
+            //super.onBackPressed();
         }
     }
 

@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
     private static final String TAG = "MapsActivity";
-    public static Location currentLocation;
+    public static LatLng currentLocation;
 
 
     @Override
@@ -32,6 +32,11 @@ public class SignUpActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_signup);
         setSupportActionBar(toolbar);
         setContentView(R.layout.activity_signup);
+        initButtons();
+        initView();
+    }
+
+    private void initButtons() {
         Button signUpB = findViewById(R.id.sign_up_button);
         Button chooseLocationB = findViewById(R.id.choose_location_button);
         chooseLocationB.setOnClickListener(
@@ -53,6 +58,22 @@ public class SignUpActivity extends AppCompatActivity {
                 }
         );
 
+    }
+
+    private void initView() {
+        Intent intent = getIntent();
+        final String activity = intent.getStringExtra("activity");
+        switch (activity) {
+            case "ServiceProvider":
+                Log.d(TAG, "initView: Service Provider");
+                break;
+            case "Client":
+                Log.d(TAG, "initView: Client");
+                break;
+            default:
+                Log.d(TAG, "Default");
+
+        }
 
     }
 
@@ -61,8 +82,6 @@ public class SignUpActivity extends AppCompatActivity {
         super.onResume();
         if (currentLocation != null)
             getLocationName();
-        else
-            Log.d(TAG, "onResume: lll");
     }
 
     public void getLocationName() {
@@ -70,12 +89,14 @@ public class SignUpActivity extends AppCompatActivity {
         try {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
             List<Address> addresses;
-            addresses = geocoder.getFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude(), 1);
+            addresses = geocoder.getFromLocation(currentLocation.latitude, currentLocation.longitude, 1);
             String KnownName = addresses.get(0).getFeatureName();
+            String Locality = addresses.get(0).getLocality();
+            String SubAdminArea = addresses.get(0).getSubAdminArea();
             String CityName = addresses.get(0).getAdminArea();
             String CountryName = addresses.get(0).getCountryName();
             TextView defaultLocationView = (TextView) findViewById(R.id.defaultLocationView);
-            defaultLocationView.setText(KnownName + " " + CityName + " " + CountryName);
+            defaultLocationView.setText(KnownName + " " + Locality + " " + SubAdminArea + " " + CityName + " " + CountryName);
 
         } catch (IOException e) {
             Log.d(TAG, "error");
