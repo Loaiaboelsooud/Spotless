@@ -51,7 +51,7 @@ public class MenuActivity extends AppCompatActivity
     }
     private void addSPMapFragment() {
 
-        MapFragment SPMapFragment = new MapFragment();
+        SPMapFragment SPMapFragment = new SPMapFragment();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainer, SPMapFragment, "SPMFragment");
         // fragmentTransaction.addToBackStack(null);
